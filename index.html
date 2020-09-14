@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HAPPY BIRTHDAY!</title>
+
+	<!-- CSS only -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+
+
+	<div id="buttond">
+		<h3>  ზდაროვააა <span>&#128514;</span></h3>
+		<button class="btn" onclick="appearEverithing();">Click me! <span>&#128513;</span></button>
+	</div>
+
+	<div id="main" style="display: none;">
+		<div class="balloon" style="background:#EE0182;"></div>
+		<div class="balloon" style="background:#FFF633;"></div>
+
+		<div class="pyro">
+		    <div class="before"></div>
+		    <div class="after"></div>
+		</div>
+
+		<div id="maindiv">
+			<h1 id="demo" class="center"></h1>
+			<h1 id="name" class="center"></h1>		
+		</div>
+
+		<div class="balloon" style="background:#FF5733;"></div>
+		<div class="balloon" style="background:#FFF633;"></div>
+		<div class="balloon" style="background:#49FF33;"></div>
+		<div class="balloon" style="background:#FF33E3;"></div>
+		<div class="balloon" style="background:#3C33FF;"></div>
+		<div class="balloon" style="background:#FF3333;"></div>	
+	</div>
+
+
+	<script type="text/javascript">
+		var loaded = false;
+		function appearEverithing(){
+			document.getElementById('main').style.display = 'block';
+			document.getElementById('buttond').style.display = 'none';
+			setTimeout(typeWriter, 1000);
+			
+		}
+	</script>
+
+	<script type="text/javascript">
+		var i = 0;
+		var txt = 'HAPPY BIRTHDAY! Nini :D'; /* The text */
+		var speed = 50; /* The speed/duration of the effect in milliseconds */
+		var next = false;
+
+		
+		function typeWriter() {
+		  if (i < txt.length) {
+		    document.getElementById("demo").innerHTML += txt.charAt(i);
+		    i++;
+		    console.log(i);
+		    setTimeout(typeWriter, 150);
+		  } else if (i == 23){
+		  	setTimeout(after, 1200);
+		  }
+		}
+
+		function after(){
+		  	document.getElementById('name').innerHTML = "Congratulations!!!";
+		  	document.getElementById('demo').innerHTML = "";
+		  	document.getElementById('name').style.opacity = 0;
+		  	setInterval(appearCong, 15);			
+		}
+		let opac = 0;
+		function appearCong(){
+			if(document.getElementById('name').style.opacity < 1){
+				document.getElementById('name').style.opacity = opac;
+				opac+= 0.005;
+			}
+			
+		}
+
+		if(next){
+
+		}
+		
+	</script>
+
+
+
+	<script type="text/javascript">
+	//fireworks
+	window.addEventListener("resize", resizeCanvas, false);
+	        window.addEventListener("DOMContentLoaded", onLoad, false);
+	        
+	        window.requestAnimationFrame = 
+	            window.requestAnimationFrame       || 
+	            window.webkitRequestAnimationFrame || 
+	            window.mozRequestAnimationFrame    || 
+	            window.oRequestAnimationFrame      || 
+	            window.msRequestAnimationFrame     || 
+	            function (callback) {
+	                window.setTimeout(callback, 1000/60);
+	            };
+	        
+	        var canvas, ctx, w, h, particles = [], probability = 0.04,
+	            xPoint, yPoint;
+	        
+	        
+	        
+	        
+	        
+	        function onLoad() {
+	            canvas = document.getElementById("canvas");
+	            ctx = canvas.getContext("2d");
+	            resizeCanvas();
+	            
+	            window.requestAnimationFrame(updateWorld);
+	        } 
+	        
+	        function resizeCanvas() {
+	            if (!!canvas) {
+	                w = canvas.width = window.innerWidth;
+	                h = canvas.height = window.innerHeight;
+	            }
+	        } 
+	        
+	        function updateWorld() {
+	            update();
+	            paint();
+	            window.requestAnimationFrame(updateWorld);
+	        } 
+	        
+	        function update() {
+	            if (particles.length < 500 && Math.random() < probability) {
+	                createFirework();
+	            }
+	            var alive = [];
+	            for (var i=0; i<particles.length; i++) {
+	                if (particles[i].move()) {
+	                    alive.push(particles[i]);
+	                }
+	            }
+	            particles = alive;
+	        } 
+	        
+	        function paint() {
+	            ctx.globalCompositeOperation = 'source-over';
+	            ctx.fillStyle = "rgba(0,0,0,0.2)";
+	            ctx.fillRect(0, 0, w, h);
+	            ctx.globalCompositeOperation = 'lighter';
+	            for (var i=0; i<particles.length; i++) {
+	                particles[i].draw(ctx);
+	            }
+	        } 
+	        
+	        function createFirework() {
+	            xPoint = Math.random()*(w-200)+100;
+	            yPoint = Math.random()*(h-200)+100;
+	            var nFire = Math.random()*50+100;
+	            var c = "rgb("+(~~(Math.random()*200+55))+","
+	                 +(~~(Math.random()*200+55))+","+(~~(Math.random()*200+55))+")";
+	            for (var i=0; i<nFire; i++) {
+	                var particle = new Particle();
+	                particle.color = c;
+	                var vy = Math.sqrt(25-particle.vx*particle.vx);
+	                if (Math.abs(particle.vy) > vy) {
+	                    particle.vy = particle.vy>0 ? vy: -vy;
+	                }
+	                particles.push(particle);
+	            }
+	        } 
+	        
+	        function Particle() {
+	            this.w = this.h = Math.random()*4+1;
+	            
+	            this.x = xPoint-this.w/2;
+	            this.y = yPoint-this.h/2;
+	            
+	            this.vx = (Math.random()-0.5)*10;
+	            this.vy = (Math.random()-0.5)*10;
+	            
+	            this.alpha = Math.random()*.5+.5;
+	            
+	            this.color;
+	        } 
+	        
+	        Particle.prototype = {
+	            gravity: 0.05,
+	            move: function () {
+	                this.x += this.vx;
+	                this.vy += this.gravity;
+	                this.y += this.vy;
+	                this.alpha -= 0.01;
+	                if (this.x <= -this.w || this.x >= screen.width ||
+	                    this.y >= screen.height ||
+	                    this.alpha <= 0) {
+	                        return false;
+	                }
+	                return true;
+	            },
+	            draw: function (c) {
+	                c.save();
+	                c.beginPath();
+	                
+	                c.translate(this.x+this.w/2, this.y+this.h/2);
+	                c.arc(0, 0, this.w, 0, Math.PI*2);
+	                c.fillStyle = this.color;
+	                c.globalAlpha = this.alpha;
+	                
+	                c.closePath();
+	                c.fill();
+	                c.restore();
+	            }
+	        } 
+	</script>
+</body>
+</html>
